@@ -3,7 +3,7 @@ name: 'publish'
 on:
   push:
     branches:
-      - release
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -18,10 +18,10 @@ jobs:
 
     runs-on: ${{ matrix.platform }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
