@@ -47,7 +47,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: artifacts
+          name: artifacts-${{ strategy.job-index }}
           path: "${{ join(fromJSON(steps.tauri_build.outputs.artifacts), '\n') }}"
 
   publish:
@@ -58,7 +58,7 @@ jobs:
       - uses: actions/download-artifact@v4
         id: download
         with:
-          name: artifacts
+          pattern: artifacts-*
           path: artifacts
       # And create a release with the artifacts attached
       - name: 'create release'
