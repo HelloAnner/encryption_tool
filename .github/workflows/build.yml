@@ -2,6 +2,10 @@ name: Build Tauri Project
 
 on: [ push, pull_request ]  # 触发条件，可以是 push、pull_request 或者其他事件
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     name: Build Tauri App
@@ -41,7 +45,7 @@ jobs:
       - uses: JonasKruckenberg/tauri-build@v1
         id: tauri_build
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v3
         with:
           name: artifacts
           path: "${{ join(fromJSON(steps.tauri_build.outputs.artifacts), '\n') }}"
