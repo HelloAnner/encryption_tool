@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2  # 检出代码仓库
+        uses: actions/checkout@v4  # 检出代码仓库
 
       - name: Install Build Dependency
         run: |
@@ -32,10 +32,3 @@ jobs:
       - name: Build Tauri App
         run: |
           cargo tauri build --verbose
-
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: Tauri-App
-          path: ./target/deploy  # 根据你的项目结构调整路径
