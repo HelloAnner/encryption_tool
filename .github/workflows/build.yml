@@ -13,8 +13,8 @@ jobs:
 
       - name: Install Build Dependency
         run: |
-          apt-get update
-          apt-get install -y curl build-essential
+          sudo apt-get update
+          sudo apt-get install -y curl build-essential
 
       - name: Install Rust toolchain
         uses: actions-rs/toolchain@v1
