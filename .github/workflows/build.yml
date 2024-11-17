@@ -26,7 +26,6 @@ jobs:
 
       - name: Install Tauri CLI
         run: |
-          cargo install create-tauri-app --locked
           sh <(curl https://create.tauri.app/sh)
 
       - name: Build Tauri App
