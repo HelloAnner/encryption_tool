@@ -1,6 +1,9 @@
 name: Build Tauri Project
 
-on: [ push, pull_request ]  # 触发条件，可以是 push、pull_request 或者其他事件
+on:
+  create: # 监听标签创建事件
+    tags:
+      - 'v*'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
