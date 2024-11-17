@@ -1,0 +1,41 @@
+name: Build Tauri Project
+
+on: [ push, pull_request ]  # 触发条件，可以是 push、pull_request 或者其他事件
+
+jobs:
+  build:
+    name: Build Tauri App
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2  # 检出代码仓库
+
+      - name: Install Build Dependency
+        run: |
+          apt-get update
+          apt-get install -y curl build-essential
+
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+          profile: minimal
+          components: rustfmt, clippy  # 如果需要的话，可以添加 rustfmt 和 clippy
+
+      - name: Install Tauri CLI
+        run: |
+          cargo install create-tauri-app --locked
+          sh <(curl https://create.tauri.app/sh)
+
+      - name: Build Tauri App
+        run: |
+          cargo tauri build --verbose
+
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Tauri-App
+          path: ./target/deploy  # 根据你的项目结构调整路径
